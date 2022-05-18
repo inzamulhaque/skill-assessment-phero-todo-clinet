@@ -1,6 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Task = ({ task, addCount, setAddCount }) => {
 
     const handleUpdate = (id) => {
@@ -11,7 +14,10 @@ const Task = ({ task, addCount, setAddCount }) => {
             },
         })
             .then(res => res.json())
-            .then(data => setAddCount(addCount + 1));
+            .then(data => {
+                setAddCount(addCount + 1);
+                toast.success("Task Completed");
+            });
     }
 
     const handleDelete = (id) => {
@@ -37,6 +43,7 @@ const Task = ({ task, addCount, setAddCount }) => {
                 <Button variant="primary" onClick={() => handleUpdate(task?._id)}>Complete</Button>
                 <Button variant="danger" onClick={() => handleDelete(task?._id)}>Delete Task</Button>
             </div>
+            <ToastContainer />
         </>
     );
 };
